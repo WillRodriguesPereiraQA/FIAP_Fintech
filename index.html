@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FinControl — controle de gastos pessoais. Tela de listagem e filtro de gastos.">
+  <title>Gastos | FinControl</title>
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+
+  <!-- Fonte Inter (se não houver internet, o navegador usa a fonte padrão do sistema) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS gerado pelo Tailwind CSS (src/entrada.css → css/style.css) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="min-h-screen lg:flex">
+
+    <!-- ===================== MENU LATERAL (tablet e desktop) ===================== -->
+    <aside class="hidden w-64 shrink-0 flex-col border-r border-borda bg-white lg:sticky lg:top-0 lg:flex lg:h-screen">
+      <a href="index.html" class="flex items-center gap-3 px-6 pb-6 pt-7">
+        <img src="img/logo.svg" alt="Logotipo FinControl" class="h-10 w-10">
+        <span>
+          <span class="block text-lg font-bold leading-tight text-primaria">FinControl</span>
+          <span class="block text-xs text-suave">Controle financeiro</span>
+        </span>
+      </a>
+
+      <nav aria-label="Menu principal" class="flex-1 px-3">
+        <ul class="space-y-1">
+          <li>
+            <a href="#" class="menu-item">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg>
+              Início
+            </a>
+          </li>
+          <li>
+            <a href="#" class="menu-item menu-item-ativo" aria-current="page">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+              Gastos
+            </a>
+          </li>
+          <li>
+            <a href="#" class="menu-item">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+              Categorias
+            </a>
+          </li>
+          <li>
+            <a href="#" class="menu-item">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-5M12 16V6M17 16v-8"/></svg>
+              Resumo
+            </a>
+          </li>
+          <li>
+            <a href="#" class="menu-item">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              Configurações
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Cartão de orçamento do mês -->
+      <div class="m-4 rounded-cartao bg-primaria-clara p-4">
+        <img src="img/carteira.svg" alt="Ilustração de uma carteira com moedas" class="mx-auto mb-3 h-20 w-auto">
+        <p class="text-xs text-suave">Orçamento de outubro</p>
+        <p class="text-sm font-semibold">R$ 2.317,20 <span class="font-normal text-suave">de R$ 5.000,00</span></p>
+        <div class="mt-2 h-2 rounded-full bg-white" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" aria-label="46% do orçamento usado">
+          <div class="h-2 w-[46%] rounded-full bg-primaria"></div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 border-t border-borda px-6 py-4">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primaria text-sm font-semibold text-white">WP</span>
+        <span class="text-sm">
+          <span class="block font-semibold">Will Pereira</span>
+          <span class="block text-xs text-suave">Conta pessoal</span>
+        </span>
+      </div>
+    </aside>
+
+    <!-- ===================== CABEÇALHO (celular) ===================== -->
+    <header class="sticky top-0 z-10 border-b border-borda bg-white lg:hidden">
+      <div class="flex items-center justify-between px-4 py-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="img/logo.svg" alt="Logotipo FinControl" class="h-8 w-8">
+          <span class="text-lg font-bold text-primaria">FinControl</span>
+        </a>
+        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primaria text-xs font-semibold text-white" aria-label="Usuário Will Pereira">WP</span>
+      </div>
+      <nav aria-label="Menu principal" class="flex gap-1 overflow-x-auto px-3 pb-3">
+        <a href="#" class="aba">Início</a>
+        <a href="#" class="aba aba-ativa" aria-current="page">Gastos</a>
+        <a href="#" class="aba">Categorias</a>
+        <a href="#" class="aba">Resumo</a>
+        <a href="#" class="aba">Configurações</a>
+      </nav>
+    </header>
+
+    <!-- ===================== CONTEÚDO ===================== -->
+    <main class="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      <div class="mx-auto max-w-6xl space-y-6">
+
+        <!-- Título da página -->
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-sm text-suave">Início › Gastos</p>
+            <h1>Gastos</h1>
+          </div>
+          <a href="#" class="botao-primario w-full sm:w-auto">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Novo gasto
+          </a>
+        </div>
+
+        <!-- Indicadores do período -->
+        <section aria-label="Resumo do período" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div class="cartao p-5">
+            <p class="text-sm text-suave">Total no período</p>
+            <p class="mt-1 whitespace-nowrap text-2xl font-bold">R$ 2.317,20</p>
+          </div>
+          <div class="cartao p-5">
+            <p class="text-sm text-suave">Lançamentos</p>
+            <p class="mt-1 whitespace-nowrap text-2xl font-bold">5 gastos</p>
+          </div>
+          <div class="cartao p-5">
+            <p class="text-sm text-suave">Saldo do orçamento</p>
+            <p class="mt-1 whitespace-nowrap text-2xl font-bold text-sucesso">R$ 2.682,80</p>
+          </div>
+        </section>
+
+        <!-- Filtros -->
+        <section class="cartao p-5 sm:p-6" aria-labelledby="titulo-filtros">
+          <h2 id="titulo-filtros" class="mb-4">Filtros</h2>
+          <form action="#" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <div>
+              <label for="data-inicial" class="rotulo">Data inicial</label>
+              <input id="data-inicial" name="data-inicial" type="date" value="2026-10-01" class="campo">
+            </div>
+            <div>
+              <label for="data-final" class="rotulo">Data final</label>
+              <input id="data-final" name="data-final" type="date" value="2026-10-31" class="campo">
+            </div>
+            <div>
+              <label for="categoria" class="rotulo">Categoria</label>
+              <select id="categoria" name="categoria" class="campo">
+                <option>Todas</option>
+                <option>Alimentação</option>
+                <option>Transporte</option>
+                <option>Moradia</option>
+                <option>Saúde</option>
+                <option>Lazer</option>
+              </select>
+            </div>
+            <div>
+              <label for="valor-minimo" class="rotulo">Valor mínimo (R$)</label>
+              <input id="valor-minimo" name="valor-minimo" type="number" min="0" step="0.01" placeholder="0,00" class="campo">
+            </div>
+            <div>
+              <label for="valor-maximo" class="rotulo">Valor máximo (R$)</label>
+              <input id="valor-maximo" name="valor-maximo" type="number" min="0" step="0.01" placeholder="9.999,00" class="campo">
+            </div>
+            <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end sm:self-end xl:col-span-5">
+              <button type="reset" class="botao-secundario">Limpar filtros</button>
+              <button type="submit" class="botao-primario">Aplicar filtros</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Lista de gastos -->
+        <section class="cartao overflow-hidden" aria-labelledby="titulo-lista">
+          <div class="flex items-center justify-between border-b border-borda px-5 py-4 sm:px-6">
+            <h2 id="titulo-lista">Gastos de outubro de 2026</h2>
+            <span class="text-sm text-suave">01/10 a 31/10</span>
+          </div>
+
+          <!-- Tabela: tablet e desktop -->
+          <div class="hidden overflow-x-auto md:block">
+            <table class="w-full">
+              <thead class="bg-fundo">
+                <tr>
+                  <th scope="col" class="tabela-titulo">Data</th>
+                  <th scope="col" class="tabela-titulo">Descrição</th>
+                  <th scope="col" class="tabela-titulo">Categoria</th>
+                  <th scope="col" class="tabela-titulo text-right">Valor</th>
+                  <th scope="col" class="tabela-titulo text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-borda">
+                <tr class="hover:bg-fundo/60">
+                  <td class="tabela-celula whitespace-nowrap text-suave">01/10/2026</td>
+                  <td class="tabela-celula font-medium">Supermercado</td>
+                  <td class="tabela-celula"><span class="selo bg-amber-100 text-amber-800"><span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Alimentação</span></td>
+                  <td class="tabela-celula whitespace-nowrap text-right font-semibold">R$ 342,90</td>
+                  <td class="tabela-celula whitespace-nowrap text-right"><a href="#" class="acao">Editar</a><span class="mx-2 text-borda">|</span><a href="#" class="acao-perigo">Excluir</a></td>
+                </tr>
+                <tr class="hover:bg-fundo/60">
+                  <td class="tabela-celula whitespace-nowrap text-suave">08/10/2026</td>
+                  <td class="tabela-celula font-medium">Uber</td>
+                  <td class="tabela-celula"><span class="selo bg-sky-100 text-sky-800"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Transporte</span></td>
+                  <td class="tabela-celula whitespace-nowrap text-right font-semibold">R$ 28,50</td>
+                  <td class="tabela-celula whitespace-nowrap text-right"><a href="#" class="acao">Editar</a><span class="mx-2 text-borda">|</span><a href="#" class="acao-perigo">Excluir</a></td>
+                </tr>
+                <tr class="hover:bg-fundo/60">
+                  <td class="tabela-celula whitespace-nowrap text-suave">10/10/2026</td>
+                  <td class="tabela-celula font-medium">Aluguel</td>
+                  <td class="tabela-celula"><span class="selo bg-indigo-100 text-indigo-800"><span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Moradia</span></td>
+                  <td class="tabela-celula whitespace-nowrap text-right font-semibold">R$ 1.800,00</td>
+                  <td class="tabela-celula whitespace-nowrap text-right"><a href="#" class="acao">Editar</a><span class="mx-2 text-borda">|</span><a href="#" class="acao-perigo">Excluir</a></td>
+                </tr>
+                <tr class="hover:bg-fundo/60">
+                  <td class="tabela-celula whitespace-nowrap text-suave">12/10/2026</td>
+                  <td class="tabela-celula font-medium">Farmácia</td>
+                  <td class="tabela-celula"><span class="selo bg-emerald-100 text-emerald-800"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Saúde</span></td>
+                  <td class="tabela-celula whitespace-nowrap text-right font-semibold">R$ 89,90</td>
+                  <td class="tabela-celula whitespace-nowrap text-right"><a href="#" class="acao">Editar</a><span class="mx-2 text-borda">|</span><a href="#" class="acao-perigo">Excluir</a></td>
+                </tr>
+                <tr class="hover:bg-fundo/60">
+                  <td class="tabela-celula whitespace-nowrap text-suave">14/10/2026</td>
+                  <td class="tabela-celula font-medium">Streaming</td>
+                  <td class="tabela-celula"><span class="selo bg-pink-100 text-pink-800"><span class="h-1.5 w-1.5 rounded-full bg-pink-500"></span>Lazer</span></td>
+                  <td class="tabela-celula whitespace-nowrap text-right font-semibold">R$ 55,90</td>
+                  <td class="tabela-celula whitespace-nowrap text-right"><a href="#" class="acao">Editar</a><span class="mx-2 text-borda">|</span><a href="#" class="acao-perigo">Excluir</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Cartões: celular -->
+          <ul class="divide-y divide-borda md:hidden">
+            <li class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Supermercado</p>
+                  <p class="text-xs text-suave">01/10/2026</p>
+                </div>
+                <p class="whitespace-nowrap font-semibold">R$ 342,90</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="selo bg-amber-100 text-amber-800"><span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Alimentação</span>
+                <span class="flex gap-4"><a href="#" class="acao">Editar</a><a href="#" class="acao-perigo">Excluir</a></span>
+              </div>
+            </li>
+            <li class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Uber</p>
+                  <p class="text-xs text-suave">08/10/2026</p>
+                </div>
+                <p class="whitespace-nowrap font-semibold">R$ 28,50</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="selo bg-sky-100 text-sky-800"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Transporte</span>
+                <span class="flex gap-4"><a href="#" class="acao">Editar</a><a href="#" class="acao-perigo">Excluir</a></span>
+              </div>
+            </li>
+            <li class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Aluguel</p>
+                  <p class="text-xs text-suave">10/10/2026</p>
+                </div>
+                <p class="whitespace-nowrap font-semibold">R$ 1.800,00</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="selo bg-indigo-100 text-indigo-800"><span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Moradia</span>
+                <span class="flex gap-4"><a href="#" class="acao">Editar</a><a href="#" class="acao-perigo">Excluir</a></span>
+              </div>
+            </li>
+            <li class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Farmácia</p>
+                  <p class="text-xs text-suave">12/10/2026</p>
+                </div>
+                <p class="whitespace-nowrap font-semibold">R$ 89,90</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="selo bg-emerald-100 text-emerald-800"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Saúde</span>
+                <span class="flex gap-4"><a href="#" class="acao">Editar</a><a href="#" class="acao-perigo">Excluir</a></span>
+              </div>
+            </li>
+            <li class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-medium">Streaming</p>
+                  <p class="text-xs text-suave">14/10/2026</p>
+                </div>
+                <p class="whitespace-nowrap font-semibold">R$ 55,90</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="selo bg-pink-100 text-pink-800"><span class="h-1.5 w-1.5 rounded-full bg-pink-500"></span>Lazer</span>
+                <span class="flex gap-4"><a href="#" class="acao">Editar</a><a href="#" class="acao-perigo">Excluir</a></span>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Rodapé da lista com paginação -->
+          <div class="flex flex-col items-center gap-3 border-t border-borda px-5 py-4 sm:flex-row sm:justify-between sm:px-6">
+            <p class="text-sm text-suave">Mostrando 5 de 64 gastos</p>
+            <nav aria-label="Paginação" class="flex gap-1">
+              <a href="#" class="pagina pagina-atual" aria-current="page">1</a>
+              <a href="#" class="pagina">2</a>
+              <a href="#" class="pagina">3</a>
+              <a href="#" class="pagina" aria-label="Próxima página">›</a>
+            </nav>
+          </div>
+        </section>
+
+        <footer class="pb-2 text-center text-xs text-suave">
+          FinControl · Projeto Fintech FIAP · Will Pereira (RM576183)
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

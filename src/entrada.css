@@ -1,0 +1,109 @@
+/*
+ * FinControl — arquivo de entrada do Tailwind CSS.
+ * Este arquivo é compilado para css/style.css (npm run build).
+ * O HTML usa apenas o css/style.css compilado, por isso abre sem internet e sem JavaScript.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Padrões da identidade visual (textos, bordas, campos, botões, tabelas) */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-fundo font-sans text-texto antialiased;
+  }
+
+  h1 {
+    @apply text-2xl font-bold tracking-tight sm:text-3xl;
+  }
+
+  h2 {
+    @apply text-base font-bold;
+  }
+}
+
+@layer components {
+  /* Cartões brancos com borda suave */
+  .cartao {
+    @apply rounded-cartao border border-borda bg-white shadow-cartao;
+  }
+
+  /* Formulários */
+  .rotulo {
+    @apply mb-1 block text-sm text-suave;
+  }
+
+  .campo {
+    @apply h-10 w-full rounded-lg border border-borda bg-white px-3 text-sm text-texto
+      placeholder:text-suave/70 focus:border-primaria focus:outline-none focus:ring-2 focus:ring-primaria/20;
+  }
+
+  /* Botões */
+  .botao {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold
+      transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primaria/40;
+  }
+
+  .botao-primario {
+    @apply botao bg-primaria text-white hover:bg-primaria-escura;
+  }
+
+  .botao-secundario {
+    @apply botao border border-primaria bg-white text-primaria hover:bg-primaria-clara;
+  }
+
+  /* Menu lateral */
+  .menu-item {
+    @apply flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm text-texto transition-colors hover:bg-fundo;
+  }
+
+  .menu-item-ativo {
+    @apply bg-primaria-clara font-semibold text-primaria hover:bg-primaria-clara;
+  }
+
+  /* Menu horizontal (celular) */
+  .aba {
+    @apply shrink-0 rounded-full px-4 py-1.5 text-sm text-texto transition-colors hover:bg-fundo;
+  }
+
+  .aba-ativa {
+    @apply bg-primaria-clara font-semibold text-primaria;
+  }
+
+  /* Tabela de gastos */
+  .tabela-titulo {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-suave;
+  }
+
+  .tabela-celula {
+    @apply px-4 py-3.5 text-sm;
+  }
+
+  /* Selo de categoria */
+  .selo {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  /* Links de ação (Editar / Excluir) */
+  .acao {
+    @apply inline-flex items-center gap-1 text-sm font-medium text-primaria hover:underline;
+  }
+
+  .acao-perigo {
+    @apply acao text-perigo;
+  }
+
+  /* Paginação */
+  .pagina {
+    @apply inline-flex h-8 min-w-8 items-center justify-center rounded-md px-2 text-sm text-primaria hover:bg-primaria-clara;
+  }
+
+  .pagina-atual {
+    @apply bg-primaria font-semibold text-white hover:bg-primaria;
+  }
+}
